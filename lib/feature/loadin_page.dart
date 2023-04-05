@@ -12,7 +12,7 @@ class ProgressIncator extends StatefulWidget {
 
 class _ProgressIncatorState extends State<ProgressIncator> {
   double _progress = 0.0;
-  List<Map<String, dynamic>> allCitiesWeather = [];
+  List<Map<String, dynamic>> citiesWeather = [];
   List<String> cities = ['RENNES', 'PARIS', 'NANTES', 'BORDEAUX', 'LYON'];
   List<String> messages = [
     'Téléchargeons les données...',
@@ -56,7 +56,7 @@ class _ProgressIncatorState extends State<ProgressIncator> {
   void printWeatherDataForOneCity(String cityName) async {
     final weatherData = await getWeather(cityName);
     setState(() {
-      allCitiesWeather.add(weatherData);
+      citiesWeather.add(weatherData);
     });
   }
 
@@ -82,7 +82,7 @@ class _ProgressIncatorState extends State<ProgressIncator> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 60,
+                height: 30,
               ),
               Image.asset(
                 "assets/weather.png",
@@ -110,21 +110,18 @@ class _ProgressIncatorState extends State<ProgressIncator> {
                 barRadius: const Radius.circular(22),
                 progressColor: Colors.blue,
               ),
-              const SizedBox(height: 20),
               Expanded(
                 child: ListView.builder(
-                    itemCount: allCitiesWeather.length,
+                    itemCount: citiesWeather.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final cityName = allCitiesWeather[index]['name'];
-                      final temp = allCitiesWeather[index]['main']['temp'];
-                      final humidity =
-                          allCitiesWeather[index]['main']['humidity'];
+                      final cityName = citiesWeather[index]['name'];
+                      final temp = citiesWeather[index]['main']['temp'];
+                      final humidity = citiesWeather[index]['main']['humidity'];
                       final feelsLike =
-                          allCitiesWeather[index]['main']['feels_like'];
-                      final pressure =
-                          allCitiesWeather[index]['main']['pressure'];
+                          citiesWeather[index]['main']['feels_like'];
+                      final pressure = citiesWeather[index]['main']['pressure'];
                       final iconCode =
-                          allCitiesWeather[index]['weather'][0]['icon'];
+                          citiesWeather[index]['weather'][0]['icon'];
                       return Card(
                         child: ListTile(
                           title: Text(
@@ -141,14 +138,14 @@ class _ProgressIncatorState extends State<ProgressIncator> {
                     onPressed: () {
                       setState(() {
                         _progress = 0.0;
-                        allCitiesWeather = [];
+                        citiesWeather = [];
                         _downloadFinished = false;
                       });
                       startTimer();
                       _updateProgress();
                     },
                     child: const Text(
-                      'Start_again',
+                      'Recommencer',
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
