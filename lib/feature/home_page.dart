@@ -8,24 +8,36 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('flutter app'),
-      ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const Text('Binevuenue'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LoadingPageState()),
-                );
-              },
-              child: const Text('clic Me'),
+            const Text(
+              'Welcome',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            Image.asset(
+              "assets/icon.png",
+              fit: BoxFit.cover,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: FilledButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProgressIncator()),
+                  );
+                },
+                child: const Text(
+                  'Get Started',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+              ),
             )
           ],
         ),
